@@ -1,26 +1,55 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --color-gray-100: #fdfdfc;
+  --color-gray-200: #f9f9f8;
+  --color-gray-300: #f1f0ef;
+  --color-gray-400: #e9e9e7;
+  --color-gray-500: #e2e1de;
+  --color-gray-600: #dad9d6;
+  --color-gray-700: #cfceca;
+  --color-gray-800: #bcbbb5;
+  --color-gray-900: #8d8d86;
+  --color-gray-1000: #82827c;
+  --color-gray-1100: #63635e;
+  --color-gray-1200: #21201c;
+  --color-accent: #3b6cb5;
+  --color-accent-hover: #325ea0;
+  --shadow-sm: 0 0 0 1px rgb(0 0 0 / 0.08), 0 2px 2px rgb(0 0 0 / 0.04);
+  --text-medium: 1rem;
+  --text-medium--line-height: 1.5rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Keep the light palette from the reference. Dark utilities only apply with .dark. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  html {
+    color-scheme: light;
+    background: var(--color-gray-100);
   }
-}
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  body {
+    background: var(--color-gray-100);
+    color: var(--color-gray-1200);
+    font-feature-settings: "cv01", "ss03";
+    font-variation-settings: "opsz" auto;
+  }
+
+  p {
+    line-height: 1.65;
+  }
+
+  a {
+    color: inherit;
+    text-decoration-line: underline;
+    text-decoration-thickness: 0.08em;
+    text-decoration-color: var(--color-gray-800);
+    text-underline-position: from-font;
+  }
+
+  a:hover {
+    text-decoration-color: var(--color-gray-900);
+  }
 }

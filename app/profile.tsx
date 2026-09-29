@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
+import { TrackedLink } from "./tracked-link";
 
 const linkedinUrl = "https://www.linkedin.com/in/anton-kravchenko-303bbb3b2/";
 const githubUrl = "https://github.com/kravchenko-anton";
@@ -26,21 +27,27 @@ function ItemLink({
   href,
   title,
   description,
+  page,
 }: {
   href: string;
   title: string;
   description: string;
+  page: "home" | "recruiters";
 }) {
   return (
-    <a
+    <TrackedLink
       href={href}
       target="_blank"
       rel="noreferrer"
+      page={page}
+      event="interaction"
+      kind="project"
+      name={title}
       className="-mx-3 flex flex-col rounded-md px-3 no-underline hover:bg-[#F5F4F4] dark:hover:bg-gray-200 sm:py-3"
     >
       <span>{title}</span>
       <span className="text-gray-1100">{description}</span>
-    </a>
+    </TrackedLink>
   );
 }
 
@@ -50,7 +57,13 @@ export const ctaButtonClassName =
 export const ctaSecondaryButtonClassName =
   "inline-flex h-12 items-center justify-center rounded-full bg-gray-400 px-5 font-medium text-gray-1200 no-underline hover:bg-gray-500";
 
-export function Profile({ cta }: { cta: ReactNode }) {
+export function Profile({
+  cta,
+  page,
+}: {
+  cta: ReactNode;
+  page: "home" | "recruiters";
+}) {
   return (
     <div className="mx-auto max-w-[692px] overflow-x-hidden px-6 py-12 text-gray-1200 antialiased sm:py-32 md:overflow-x-visible md:py-16">
       <header className="mb-32 flex items-center gap-4">
@@ -81,9 +94,17 @@ export function Profile({ cta }: { cta: ReactNode }) {
         </span>
         <p className="text-gray-1100">
           I&apos;m a Computer Engineering student at{" "}
-          <a href="https://amu.edu.pl/en" target="_blank" rel="noreferrer">
+          <TrackedLink
+            href="https://amu.edu.pl/en"
+            target="_blank"
+            rel="noreferrer"
+            page={page}
+            event="interaction"
+            kind="school"
+            name="adam-mickiewicz-university"
+          >
             Adam Mickiewicz University
-          </a>
+          </TrackedLink>
           .
         </p>
         <p className="mt-4 text-gray-1100">
@@ -98,7 +119,7 @@ export function Profile({ cta }: { cta: ReactNode }) {
           </span>
           <div className="flex flex-col gap-7 sm:gap-4">
             {projects.map((project) => (
-              <ItemLink key={project.href} {...project} />
+              <ItemLink key={project.href} {...project} page={page} />
             ))}
           </div>
         </div>
@@ -107,13 +128,29 @@ export function Profile({ cta }: { cta: ReactNode }) {
           <span className="mb-6 block font-medium dark:text-white">More</span>
           <span className="text-gray-1100">
             You can see more of my work on{" "}
-            <a href={linkedinUrl} target="_blank" rel="noreferrer">
+            <TrackedLink
+              href={linkedinUrl}
+              target="_blank"
+              rel="noreferrer"
+              page={page}
+              event="interaction"
+              kind="profile"
+              name="linkedin"
+            >
               LinkedIn
-            </a>{" "}
+            </TrackedLink>{" "}
             and more of my code on{" "}
-            <a href={githubUrl} target="_blank" rel="noreferrer">
+            <TrackedLink
+              href={githubUrl}
+              target="_blank"
+              rel="noreferrer"
+              page={page}
+              event="interaction"
+              kind="profile"
+              name="github"
+            >
               GitHub
-            </a>
+            </TrackedLink>
             .
           </span>
         </div>
